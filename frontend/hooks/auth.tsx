@@ -5,6 +5,7 @@ import { api } from "../services/apiClient";
 
 type AuthContextData = {
   signIn(credentials: SigninCredentials): Promise<void>;
+  clearAuth(): void;
   isAuthenticated: boolean;
 };
 
@@ -33,6 +34,10 @@ export function signOut() {
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User>();
   const isAuthenticated = !!user;
+
+  function clearAuth() {
+    setUser(undefined);
+  }
 
   useEffect(() => {
     const { "@Finpec:token": token, "@Finpec:user": username } = parseCookies();
@@ -80,7 +85,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }
 
   return (
-    <AuthContext.Provider value={{ signIn, isAuthenticated }}>
+    <AuthContext.Provider value={{ signIn, clearAuth, isAuthenticated }}>
       {children}
     </AuthContext.Provider>
   );

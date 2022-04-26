@@ -1,6 +1,7 @@
 import { Button, Container, Flex, Spacer, Text } from "@chakra-ui/react";
 import Router from "next/router";
-import { signOut } from "../hooks/auth";
+import { useContext } from "react";
+import { AuthContext, signOut } from "../hooks/auth";
 
 type HeaderProps = {
   isSignInButton?: boolean;
@@ -8,6 +9,8 @@ type HeaderProps = {
 };
 
 export function Header({ isSignInButton, isSignoutButton }: HeaderProps) {
+  const { isAuthenticated, clearAuth } = useContext(AuthContext);
+
   return (
     <Flex width="100%" as="header" py="5" px="5" background="#BA2B00">
       <Container maxW="container.lg">
@@ -21,7 +24,19 @@ export function Header({ isSignInButton, isSignoutButton }: HeaderProps) {
             Appointment Schedules
           </Text>
           <Spacer />
-          {isSignInButton && (
+
+          {isAuthenticated && (
+            <Button
+              onClick={() => Router.push("/dashboard")}
+              colorScheme="blackAlpha"
+              variant="solid"
+              marginRight={2}
+            >
+              Dashboard
+            </Button>
+          )}
+
+          {isSignInButton && !isAuthenticated && (
             <Button
               onClick={() => Router.push("/login")}
               colorScheme="blackAlpha"
@@ -31,9 +46,12 @@ export function Header({ isSignInButton, isSignoutButton }: HeaderProps) {
             </Button>
           )}
 
-          {isSignoutButton && (
+          {isSignoutButton && isAuthenticated && (
             <Button
-              onClick={() => signOut()}
+              onClick={() => {
+                clearAuth();
+                signOut();
+              }}
               colorScheme="blackAlpha"
               variant="outline"
             >

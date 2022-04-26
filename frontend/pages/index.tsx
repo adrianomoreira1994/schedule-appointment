@@ -216,10 +216,4 @@ const Home: NextPage = () => {
   );
 };
 
-export const getServerSideProps = withSSRGuest(async (context) => {
-  return {
-    props: {},
-  };
-});
-
 export default Home;
