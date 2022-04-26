@@ -73,8 +73,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
       path: "/",
     });
 
-    console.log(username, access_token);
-
     setUser({
       username,
     });

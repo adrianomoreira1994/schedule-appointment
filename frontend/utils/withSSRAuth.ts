@@ -11,8 +11,6 @@ export function withSSRAuth<T>(fn: GetServerSideProps<T>) {
   ): Promise<GetServerSidePropsResult<T>> => {
     const cookies = parseCookies(ctx);
 
-    console.log(cookies);
-
     if (!cookies["@Finpec:token"]) {
       return {
         redirect: {
