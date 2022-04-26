@@ -71,7 +71,7 @@ const MySchedules: NextPage = () => {
 
     if (result.success) {
       setSchedules(
-        result.data.map((schedule) => ({
+        result.data.map((schedule: any) => ({
           ...schedule,
           date: new Date(schedule.date).toLocaleDateString(),
         }))
@@ -185,7 +185,9 @@ const MySchedules: NextPage = () => {
                       <Td>{schedule.user.email}</Td>
                       <Td>{schedule.date}</Td>
                       <Td>{schedule.time}</Td>
-                      <Td>{schedule.status}</Td>
+                      <Td>
+                        {schedule.status === "OK" ? "CONFIRMADO" : "CANCELADO"}
+                      </Td>
                     </Tr>
                   ))}
                 </Tbody>

@@ -23,6 +23,7 @@ import {
   Divider,
   CircularProgress,
   IconButton,
+  Tooltip,
 } from "@chakra-ui/react";
 import { SmallCloseIcon, CheckIcon } from "@chakra-ui/icons";
 
@@ -124,22 +125,42 @@ const Dashboard: NextPage = () => {
                       <Td>{schedule.user.email}</Td>
                       <Td>{schedule.date}</Td>
                       <Td>{schedule.time}</Td>
-                      <Td>{schedule.status}</Td>
+                      <Td>
+                        {schedule.status === "OK" ? "CONFIRMADO" : "CANCELADO"}
+                      </Td>
                       <Td>
                         {schedule.status === "CANCELED" ? (
-                          <IconButton
-                            onClick={() => handeClick(schedule.id, "OK")}
-                            colorScheme="blue"
-                            aria-label="Reativar agenda"
-                            icon={<CheckIcon />}
-                          />
+                          <Tooltip
+                            hasArrow
+                            label="Confirmar Agendamento"
+                            placement="right-end"
+                            bg="#BA2B00"
+                          >
+                            <IconButton
+                              onClick={() => handeClick(schedule.id, "OK")}
+                              colorScheme="blue"
+                              aria-label="Reativar agenda"
+                              variant="outline"
+                              icon={<CheckIcon />}
+                            />
+                          </Tooltip>
                         ) : (
-                          <IconButton
-                            onClick={() => handeClick(schedule.id, "CANCELED")}
-                            colorScheme="red"
-                            aria-label="Cancelar agenda"
-                            icon={<SmallCloseIcon />}
-                          />
+                          <Tooltip
+                            hasArrow
+                            label="Cancelar Agendamento"
+                            placement="right-end"
+                            bg="#BA2B00"
+                          >
+                            <IconButton
+                              variant="outline"
+                              onClick={() =>
+                                handeClick(schedule.id, "CANCELED")
+                              }
+                              colorScheme="red"
+                              aria-label="Cancelar agenda"
+                              icon={<SmallCloseIcon />}
+                            />
+                          </Tooltip>
                         )}
                       </Td>
                     </Tr>
