@@ -1,6 +1,6 @@
 import { Button, Container, Flex, Spacer, Text } from "@chakra-ui/react";
 import Router from "next/router";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext, signOut } from "../hooks/auth";
 
 type HeaderProps = {
@@ -52,8 +52,8 @@ export function Header({ isSignInButton, isSignoutButton }: HeaderProps) {
                 clearAuth();
                 signOut();
               }}
-              colorScheme="blackAlpha"
-              variant="outline"
+              colorScheme="whiteAlpha"
+              variant="solid"
             >
               Sair
             </Button>
