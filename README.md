@@ -2,6 +2,8 @@
 
 ### Instalação - Backend
 
+1 - Criar uma base de dados no postgress chamada appointments
+
 ```bash
 cd backend
 yarn
