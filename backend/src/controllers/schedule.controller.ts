@@ -7,6 +7,7 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { CreateSchedulerDTO } from 'src/dtos/schedule/create-schedule.dto';
 import { UpdateScheduleDTO } from 'src/dtos/schedule/update-schedule.dto';
