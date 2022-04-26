@@ -2,14 +2,14 @@
 
 ### Instalação - Backend
 
-1 - Criar uma base de dados no postgress chamada appointments
-
 ```bash
 cd backend
 yarn
 ```
 
 ### Gerar Migration
+
+Observação: Antes de gerar a migration, criar uma base de dados no postgress chamada appointments
 
 ```bash
 yarn typeorm migration:generate -n InitialMigrate
