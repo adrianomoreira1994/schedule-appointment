@@ -18,7 +18,6 @@ import { ScheduleService } from 'src/services/schedule.service';
 export class ScheduleController {
   constructor(private scheduleService: ScheduleService) {}
 
-  @UseGuards(AuthGuard('local'))
   @Get()
   public async findByUserEmail(@Query('email') email): Promise<Result> {
     var response = await this.scheduleService.findByUserEmail(email);
