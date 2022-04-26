@@ -9,7 +9,8 @@ yarn
 
 ### Gerar Migration
 
-Observação: Antes de gerar a migration, criar uma base de dados no postgress chamada appointments
+> Observação: Antes de gerar a migration, criar uma base de dados no postgress chamada **appointments**
+> 
 
 ```bash
 yarn typeorm migration:generate -n InitialMigrate
@@ -24,7 +25,6 @@ yarn typeorm migration:run
 ### Rodar o backend
 
 ```bash
-cd backend
 yarn start:dev
 ```
 
@@ -38,7 +38,6 @@ yarn
 ### Rodar frontend
 
 ```bash
-cd frontend
 yarn dev
 ```
 
