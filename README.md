@@ -44,8 +44,11 @@ yarn dev
 Para acessar o sistema, utilizar o seguinte usuário e senha:
 
 **username:** admin@admin.com.br
-
 **password:** admin
+
+Ao rodar as duas aplicações, o backend estará na porta 8081 e o frontend na porta 3000
+- backend ► http://localhost:8081/api/v1
+- frontend ► http://localhost:3000
 
 ### Rotas da aplicação
 
