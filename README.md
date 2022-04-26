@@ -3,6 +3,7 @@
 ### Instalação - Backend
 
 ```bash
+cd backend
 yarn
 ```
 
@@ -21,18 +22,21 @@ yarn typeorm migration:run
 ### Rodar o backend
 
 ```bash
+cd backend
 yarn start:dev
 ```
 
 ### Instalação - Frontend
 
 ```bash
+cd frontend
 yarn
 ```
 
 ### Rodar frontend
 
 ```bash
+cd frontend
 yarn dev
 ```
 
