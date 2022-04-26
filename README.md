@@ -46,3 +46,12 @@ Para acessar o sistema, utilizar o seguinte usuário e senha:
 **username:** admin@admin.com.br
 
 **password:** admin
+
+### Rotas da aplicação
+
+- **GET - /api/v1/schedules** - Retorna os schedules pelo e-mail do usuário
+- **GET - /api/v1/schedules/all** - Retorna todos os schedules
+- **POST - /api/v1/schedules** - Cria um schedule
+- **PUT - /api/v1/schedules** - Altera o status do schedule
+- **POST - /api/v1/account/signin** - Realiza o login na API
+- **GET - /api/v1/account/me** - Retorna o perfil do usuário admin logado
