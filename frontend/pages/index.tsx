@@ -42,6 +42,7 @@ const Home: NextPage = () => {
     if (result.success) {
       toast({
         title: result.message,
+        position: "top-right",
         status: "success",
         duration: 9000,
         isClosable: true,
@@ -49,12 +50,24 @@ const Home: NextPage = () => {
 
       reset();
     } else {
-      toast({
-        title: result.message,
-        status: "error",
-        duration: 9000,
-        isClosable: true,
-      });
+      if (result.data) {
+        const hours: string[] = result.data;
+        toast({
+          title: `${result.message}: ${hours.join(" | ")}`,
+          position: "top-right",
+          status: "warning",
+          duration: 10000,
+          isClosable: true,
+        });
+      } else {
+        toast({
+          title: result.message,
+          position: "top-right",
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        });
+      }
     }
   };
 
