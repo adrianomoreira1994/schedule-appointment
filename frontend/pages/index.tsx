@@ -12,6 +12,7 @@ import {
   Text,
   useToast,
   Select,
+  Divider,
 } from "@chakra-ui/react";
 import { ArrowDownIcon } from "@chakra-ui/icons";
 
@@ -22,6 +23,7 @@ import { Header } from "../components/Header";
 
 import { api } from "../services/apiClient";
 import { Result } from "../models/result";
+import Router from "next/router";
 
 interface IFormInput {
   name: string;
@@ -90,10 +92,26 @@ const Home: NextPage = () => {
           <Heading mt={20} mb={4}>
             CADASTRO DE <span style={{ color: "#BA2B00" }}>AGENDAMENTO</span>
           </Heading>
-          <Center>
+          <Center mb={8}>
             <Text fontSize="xl">
               Informe seus dados abaixo para realizar o agendamento
             </Text>
+          </Center>
+
+          <Divider />
+
+          <Center mt={8}>
+            <Button
+              backgroundColor="#BA2B00"
+              type="submit"
+              colorScheme="teal"
+              _hover={{
+                background: "#CD4820",
+              }}
+              onClick={() => Router.push("/my-schedules")}
+            >
+              Ver meus agendamentos
+            </Button>
           </Center>
         </Box>
 

@@ -23,11 +23,20 @@ import {
   Divider,
   CircularProgress,
   IconButton,
+  Button,
+  InputGroup,
+  InputLeftElement,
+  Input,
+  FormControl,
+  FormLabel,
+  useToast,
 } from "@chakra-ui/react";
-import { SmallCloseIcon, CheckIcon } from "@chakra-ui/icons";
+import { SmallCloseIcon, CheckIcon, EmailIcon } from "@chakra-ui/icons";
 
 import { useEffect, useState } from "react";
 import { Result } from "../models/result";
+import { withSSRGuest } from "../utils/withSSRGuest";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 type Scheduler = {
   id: string;
@@ -43,31 +52,41 @@ type Scheduler = {
   time: string;
 };
 
-const Dashboard: NextPage = () => {
+interface IFormInput {
+  email: string;
+}
+
+const MySchedules: NextPage = () => {
   const [schedules, setSchedules] = useState<Scheduler[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { register, handleSubmit } = useForm<IFormInput>();
+  const [loading, setLoading] = useState(false);
+  const toast = useToast();
 
-  useEffect(() => {
-    (async function () {
-      const { data: result } = await api.get<Result>("schedules/all");
-      if (result.success) {
-        setSchedules(
-          result.data.map((schedule: any) => ({
-            ...schedule,
-            date: new Date(schedule.date).toLocaleDateString(),
-          }))
-        );
+  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+    setLoading(true);
 
-        setLoading(false);
-      }
-    })();
-  }, [schedules]);
+    const { data: result } = await api.get<Result>(
+      `/schedules?email=${data.email}`
+    );
 
-  const handeClick = async (scheduleId: string, status: string) => {
-    await api.put("/schedules", {
-      id: scheduleId,
-      status: status,
-    });
+    if (result.success) {
+      setSchedules(
+        result.data.map((schedule) => ({
+          ...schedule,
+          date: new Date(schedule.date).toLocaleDateString(),
+        }))
+      );
+    } else {
+      toast({
+        title: result.message,
+        position: "top-right",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
+    }
+
+    setLoading(false);
   };
 
   return (
@@ -81,8 +100,51 @@ const Dashboard: NextPage = () => {
       <Center>
         <Box maxW={600}>
           <Heading mt={20} mb={4}>
-            LISTAGEM DE <span style={{ color: "#BA2B00" }}>AGENDAMENTOS</span>
+            MEUS <span style={{ color: "#BA2B00" }}>AGENDAMENTOS</span>
           </Heading>
+
+          <Flex
+            onSubmit={handleSubmit(onSubmit)}
+            as="form"
+            width="100%"
+            maxWidth={360}
+            p="8"
+            borderRadius={8}
+            flexDir="column"
+          >
+            <FormControl>
+              <FormLabel>Informe seu e-mail</FormLabel>
+
+              <InputGroup>
+                <InputLeftElement
+                  pointerEvents="none"
+                  children={<EmailIcon color="gray.300" />}
+                />
+                <Input
+                  {...register("email")}
+                  name="email"
+                  type="email"
+                  bgColor="white"
+                  placeholder="E-mail:"
+                  _hover={{
+                    bgColor: "gray.100",
+                  }}
+                />
+              </InputGroup>
+            </FormControl>
+
+            <Button
+              backgroundColor="#BA2B00"
+              type="submit"
+              mt={6}
+              colorScheme="teal"
+              _hover={{
+                background: "#CD4820",
+              }}
+            >
+              Pesquisar
+            </Button>
+          </Flex>
         </Box>
       </Center>
 
@@ -112,7 +174,6 @@ const Dashboard: NextPage = () => {
                     <Th>Data</Th>
                     <Th>Horário</Th>
                     <Th>Status</Th>
-                    <Th>Ações</Th>
                   </Tr>
                 </Thead>
 
@@ -125,23 +186,6 @@ const Dashboard: NextPage = () => {
                       <Td>{schedule.date}</Td>
                       <Td>{schedule.time}</Td>
                       <Td>{schedule.status}</Td>
-                      <Td>
-                        {schedule.status === "CANCELED" ? (
-                          <IconButton
-                            onClick={() => handeClick(schedule.id, "OK")}
-                            colorScheme="blue"
-                            aria-label="Reativar agenda"
-                            icon={<CheckIcon />}
-                          />
-                        ) : (
-                          <IconButton
-                            onClick={() => handeClick(schedule.id, "CANCELED")}
-                            colorScheme="red"
-                            aria-label="Cancelar agenda"
-                            icon={<SmallCloseIcon />}
-                          />
-                        )}
-                      </Td>
                     </Tr>
                   ))}
                 </Tbody>
@@ -154,13 +198,10 @@ const Dashboard: NextPage = () => {
   );
 };
 
-export const getServerSideProps = withSSRAuth(async (context) => {
-  const apiClinet = setupApiClient(context);
-  await apiClinet.get("/account/me");
-
+export const getServerSideProps = withSSRGuest(async (context) => {
   return {
     props: {},
   };
 });
 
-export default Dashboard;
+export default MySchedules;

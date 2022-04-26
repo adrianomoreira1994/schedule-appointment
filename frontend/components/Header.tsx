@@ -1,5 +1,5 @@
 import { Button, Container, Flex, Spacer, Text } from "@chakra-ui/react";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
 import { AuthContext, signOut } from "../hooks/auth";
 
@@ -10,6 +10,7 @@ type HeaderProps = {
 
 export function Header({ isSignInButton, isSignoutButton }: HeaderProps) {
   const { isAuthenticated, clearAuth } = useContext(AuthContext);
+  const router = useRouter();
 
   return (
     <Flex width="100%" as="header" py="5" px="5" background="#BA2B00">
@@ -24,6 +25,17 @@ export function Header({ isSignInButton, isSignoutButton }: HeaderProps) {
             Appointment Schedules
           </Text>
           <Spacer />
+
+          {router.pathname === "/my-schedules" && (
+            <Button
+              onClick={() => router.back()}
+              colorScheme="blackAlpha"
+              variant="solid"
+              marginRight={2}
+            >
+              Voltar
+            </Button>
+          )}
 
           {isAuthenticated && (
             <Button
