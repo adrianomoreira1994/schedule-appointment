@@ -1,5 +1,6 @@
 import Head from "next/head";
 import type { NextPage } from "next";
+import ActionButton from "../components/ActionButton";
 import {
   Box,
   Button,
@@ -101,17 +102,13 @@ const Home: NextPage = () => {
           <Divider />
 
           <Center mt={8}>
-            <Button
+            <ActionButton
               backgroundColor="#BA2B00"
-              type="submit"
-              colorScheme="teal"
-              _hover={{
-                background: "#CD4820",
-              }}
+              color="#FFF"
               onClick={() => Router.push("/my-schedules")}
             >
-              Ver meus agendamentos
-            </Button>
+              <p>Ver meus agendamentos</p>
+            </ActionButton>
           </Center>
         </Box>
 
@@ -246,5 +243,11 @@ const Home: NextPage = () => {
     </>
   );
 };
+
+export const getServerSideProps = withSSRGuest(async (context) => {
+  return {
+    props: {},
+  };
+});
 
 export default Home;

@@ -1,7 +1,8 @@
-import { Button, Container, Flex, Spacer, Text } from "@chakra-ui/react";
-import Router, { useRouter } from "next/router";
-import { useContext, useEffect } from "react";
-import { AuthContext, signOut } from "../hooks/auth";
+import { Container, Flex, Spacer, Text } from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import { useContext } from "react";
+import { AuthContext, signOut } from "../../hooks/auth";
+import ActionButton from "../ActionButton";
 
 type HeaderProps = {
   isSignInButton?: boolean;
@@ -27,48 +28,46 @@ export function Header({ isSignInButton, isSignoutButton }: HeaderProps) {
           <Spacer />
 
           {router.pathname === "/my-schedules" && (
-            <Button
+            <ActionButton
               onClick={() => router.back()}
-              colorScheme="blackAlpha"
-              variant="solid"
-              marginRight={2}
+              backgroundColor="#5c1601"
+              color="white"
             >
               Voltar
-            </Button>
+            </ActionButton>
           )}
 
           {isAuthenticated && (
-            <Button
-              onClick={() => Router.push("/dashboard")}
-              colorScheme="blackAlpha"
-              variant="solid"
-              marginRight={2}
+            <ActionButton
+              onClick={() => router.push("/dashboard")}
+              backgroundColor="#5c1601"
+              color="white"
             >
               Dashboard
-            </Button>
+            </ActionButton>
           )}
 
           {isSignInButton && !isAuthenticated && (
-            <Button
-              onClick={() => Router.push("/login")}
-              colorScheme="blackAlpha"
-              variant="solid"
+            <ActionButton
+              onClick={() => router.push("/login")}
+              backgroundColor="#5c1601"
+              color="white"
             >
-              Entrar!
-            </Button>
+              Login
+            </ActionButton>
           )}
 
           {isSignoutButton && isAuthenticated && (
-            <Button
+            <ActionButton
               onClick={() => {
                 clearAuth();
                 signOut();
               }}
-              colorScheme="whiteAlpha"
-              variant="solid"
+              backgroundColor="#5c1601"
+              color="white"
             >
               Sair
-            </Button>
+            </ActionButton>
           )}
         </Flex>
       </Container>

@@ -5,8 +5,6 @@ import { api } from "../services/apiClient";
 import { withSSRAuth } from "../utils/withSSRAuth";
 import { setupApiClient } from "../services/api";
 
-import { Header } from "../components/Header";
-
 import {
   Table,
   Thead,
@@ -29,6 +27,7 @@ import { SmallCloseIcon, CheckIcon } from "@chakra-ui/icons";
 
 import { useEffect, useState } from "react";
 import { Result } from "../models/result";
+import { Header } from "../components/Header";
 
 type Scheduler = {
   id: string;

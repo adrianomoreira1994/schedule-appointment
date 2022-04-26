@@ -17,6 +17,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useContext, useState } from "react";
 import { AuthContext } from "../hooks/auth";
 import { withSSRGuest } from "../utils/withSSRGuest";
+import ActionButton from "../components/ActionButton";
 
 interface IFormInput {
   email: string;
@@ -99,12 +100,7 @@ const Login: NextPage = () => {
             />
           </InputGroup>
 
-          <Button
-            backgroundColor="#BA2B00"
-            type="submit"
-            mt={6}
-            colorScheme="teal"
-          >
+          <ActionButton type="submit" backgroundColor="#BA2B00" color="#FFF">
             {loading && (
               <CircularProgress
                 marginRight={2}
@@ -113,8 +109,8 @@ const Login: NextPage = () => {
                 color="white"
               />
             )}
-            Logar
-          </Button>
+            <p>Logar</p>
+          </ActionButton>
         </Flex>
       </Flex>
     </>

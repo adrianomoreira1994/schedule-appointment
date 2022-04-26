@@ -2,10 +2,6 @@ import Head from "next/head";
 import type { NextPage } from "next";
 
 import { api } from "../services/apiClient";
-import { withSSRAuth } from "../utils/withSSRAuth";
-import { setupApiClient } from "../services/api";
-
-import { Header } from "../components/Header";
 
 import {
   Table,
@@ -37,6 +33,8 @@ import { useEffect, useState } from "react";
 import { Result } from "../models/result";
 import { withSSRGuest } from "../utils/withSSRGuest";
 import { SubmitHandler, useForm } from "react-hook-form";
+import ActionButton from "../components/ActionButton";
+import { Header } from "../components/Header";
 
 type Scheduler = {
   id: string;
@@ -133,17 +131,9 @@ const MySchedules: NextPage = () => {
               </InputGroup>
             </FormControl>
 
-            <Button
-              backgroundColor="#BA2B00"
-              type="submit"
-              mt={6}
-              colorScheme="teal"
-              _hover={{
-                background: "#CD4820",
-              }}
-            >
-              Pesquisar
-            </Button>
+            <ActionButton backgroundColor="#BB2B00" color="#FFF" type="submit">
+              <p>Pesquisar</p>
+            </ActionButton>
           </Flex>
         </Box>
       </Center>
